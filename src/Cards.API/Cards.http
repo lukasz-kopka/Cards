@@ -1,0 +1,130 @@
+#address for http
+#@Cards_HostAddress = http://localhost:5263
+#address for https
+#@Cards_HostAddress = https://localhost:7138
+#address for IIS Express
+@Cards_HostAddress = https://localhost:44373
+#address for docker
+#@Cards_HostAddress = http://localhost:32770
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User1",
+  "CardNumber": "Card11"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User0",
+  "CardNumber": "Card00"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User1",
+  "CardNumber": "Card00"
+}
+
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User3",
+  "CardNumber": "Card11"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "",
+  "CardNumber": "Card00"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User0",
+  "CardNumber": ""
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "",
+  "CardNumber": ""
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User2",
+  "CardNumber": "Card24"
+}
+###
+
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User3",
+  "CardNumber": "Card37"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User3",
+  "CardNumber": "Card319"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User3",
+  "CardNumber": "Card316"
+}
+###
+
+POST {{Cards_HostAddress}}/api/card/available-actions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "UserId": "User1",
+  "CardNumber": "Card116"
+}
+###
