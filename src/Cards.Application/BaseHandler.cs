@@ -1,10 +1,6 @@
 ﻿namespace Cards.Application;
 
-public class BaseHandler
+public class BaseHandler(ILogger logger)
 {
-    protected readonly ILogger Logger;
-    public BaseHandler(ILogger logger)
-    {
-        Logger = logger;
-    }
+    protected readonly ILogger Logger = logger;
 }

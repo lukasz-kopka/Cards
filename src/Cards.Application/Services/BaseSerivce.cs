@@ -1,10 +1,6 @@
 ﻿namespace Cards.Application.Services;
 
-public class BaseSerivce
+public class BaseSerivce(ILogger logger)
 {
-    protected readonly ILogger Logger;
-    public BaseSerivce(ILogger logger)
-    {
-        Logger = logger;
-    }
+    protected readonly ILogger Logger = logger;
 }

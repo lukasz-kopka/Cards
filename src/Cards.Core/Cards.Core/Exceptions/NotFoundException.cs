@@ -1,8 +1,5 @@
 ﻿namespace Cards.Core.Exceptions;
 
-public sealed class NotFoundException : Exception
+public sealed class NotFoundException(string? message) : Exception(message)
 {
-    public NotFoundException(string? message) : base(message)
-    {
-    }
 }

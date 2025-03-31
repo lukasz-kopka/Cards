@@ -7,25 +7,18 @@ namespace Cards.Application.Queries.Actions;
 
 public sealed record GetCardActions(string UserId, string CardNumber) : IRequest<CardActions>;
 
-public sealed class GetCardActionsHandler : BaseHandler, IRequestHandler<GetCardActions, CardActions>
+public sealed class GetCardActionsHandler(ICardService cardService, ILogger logger) : BaseHandler(logger), IRequestHandler<GetCardActions, CardActions>
 {
-    private readonly ICardService _cardService;
-    private readonly Dictionary<ActionName, (List<CardType> CardTypes, List<CardStatus> CardStatuses)> _cardsActions;
-    private readonly Dictionary<ActionName, List<(List<CardStatus> CardStatuses, bool IsPinSet)>> _cardsActionsAdditionalRules;
-
-    public GetCardActionsHandler(ICardService cardService, ILogger logger): base(logger)
-    {
-        _cardService = cardService;
-        _cardsActions = AppConstants.CardActions();
-        _cardsActionsAdditionalRules = AppConstants.CardActionsWithAdditionalPinData();
-    }
+    private readonly ICardService _cardService = cardService;
+    private readonly Dictionary<ActionName, (List<CardType> CardTypes, List<CardStatus> CardStatuses)> _cardsActions = AppConstants.CardActions();
+    private readonly Dictionary<ActionName, List<(List<CardStatus> CardStatuses, bool IsPinSet)>> _cardsActionsAdditionalRules = AppConstants.CardActionsWithAdditionalPinData();
 
     public async Task<CardActions> Handle(GetCardActions request, CancellationToken cancellationToken)
     {
         Logger.Debug(LoggerTemplates.HandlerInvokeInformation, nameof(GetCardActionsHandler), request);
 
         var card = await _cardService.GetCardDetails(request.UserId, request.CardNumber, cancellationToken);
-        List<ActionName> availableActions = new List<ActionName>();
+        List<ActionName> availableActions = [];
 
         if (card is null)
         {
@@ -37,9 +30,9 @@ public sealed class GetCardActionsHandler : BaseHandler, IRequestHandler<GetCard
             if (actionName.Value.CardTypes.Contains(card.CardType) && actionName.Value.CardStatuses.Contains(card.CardStatus))
             {
                 bool isAvailableAction = true;
-                if (_cardsActionsAdditionalRules.ContainsKey(actionName.Key))
+                if (_cardsActionsAdditionalRules.TryGetValue(actionName.Key, out List<(List<CardStatus> CardStatuses, bool IsPinSet)>? value))
                 {
-                    isAvailableAction = _cardsActionsAdditionalRules[actionName.Key].Exists(x => x.CardStatuses.Contains(card.CardStatus) && x.IsPinSet == card.IsPinSet);
+                    isAvailableAction = value.Exists(x => x.CardStatuses.Contains(card.CardStatus) && x.IsPinSet == card.IsPinSet);
                 }
 
                 if (isAvailableAction)

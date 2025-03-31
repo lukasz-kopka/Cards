@@ -17,12 +17,10 @@ public static class AppDependencyInjectionExtension
         services.AddScoped<ICardService, CardService>();
 
         services.AddScoped<ExceptionHandlingMiddleware>();
-        services.AddScoped<RemoveServerHeaderMiddleware>();
     }
 
     public static void UseAppMiddlewares(this WebApplication app)
     {
-        app.UseMiddleware<RemoveServerHeaderMiddleware>();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }

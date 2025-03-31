@@ -24,8 +24,8 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDependencyInjection();
-builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(ApplicationModuleMarker).Assembly); }); //(typeof(ApplicationModuleMarker).Assembly, typeof(Program).Assembly);
-builder.Services.Configure<KestrelServerOptions>(x => x.AddServerHeader = false);//builder.Configuration.GetSection("Kestrel"));
+builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(typeof(ApplicationModuleMarker).Assembly); });
+builder.Services.Configure<KestrelServerOptions>(x => x.AddServerHeader = false);
 
 var app = builder.Build();
 

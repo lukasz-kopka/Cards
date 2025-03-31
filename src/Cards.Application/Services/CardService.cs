@@ -30,7 +30,7 @@ public sealed class CardService : BaseSerivce, ICardService
         return cardDetails;
     }
 
-    private Dictionary<string, Dictionary<string, CardDetails>> CreateSampleUserCards()
+    private static Dictionary<string, Dictionary<string, CardDetails>> CreateSampleUserCards()
     {
         var userCards = new Dictionary<string, Dictionary<string, CardDetails>>();
         for (var i = 1; i <= 3; i++)

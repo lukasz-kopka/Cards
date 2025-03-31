@@ -6,7 +6,7 @@ public static class AppConstants
 {
     public static Dictionary<ActionName, (List<CardType>, List<CardStatus>)> CardActions()
     {
-        Dictionary<ActionName, (List<CardType>, List<CardStatus>)> result = new Dictionary<ActionName, (List<CardType>, List<CardStatus>)>();
+        Dictionary<ActionName, (List<CardType>, List<CardStatus>)> result = [];
         List<CardType> allCardType =
             [CardType.Prepaid, CardType.Debit, CardType.Credit];
         List<CardStatus> allCardStatus =
@@ -31,7 +31,7 @@ public static class AppConstants
 
     public static Dictionary<ActionName, List<(List<CardStatus>, bool)>> CardActionsWithAdditionalPinData()
     {
-        Dictionary<ActionName, List<(List<CardStatus>, bool)>> result = new Dictionary<ActionName, List<(List<CardStatus>, bool)>>();
+        Dictionary<ActionName, List<(List<CardStatus>, bool)>> result = [];
 
         result.Add(ActionName.ACTION6, new([new([CardStatus.Ordered, CardStatus.Inactive, CardStatus.Active, CardStatus.Blocked], true)]));
         result.Add(ActionName.ACTION7, new([new ([CardStatus.Ordered, CardStatus.Inactive, CardStatus.Active,], false),

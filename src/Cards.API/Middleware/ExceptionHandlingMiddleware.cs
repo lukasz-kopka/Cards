@@ -7,19 +7,14 @@ using ILogger = Serilog.ILogger;
 
 namespace Cards.API.Middleware;
 
-public sealed class ExceptionHandlingMiddleware : IMiddleware
+public sealed class ExceptionHandlingMiddleware(ILogger logger) : IMiddleware
 {
-    private readonly ILogger _logger;
+    private readonly ILogger _logger = logger;
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
-
-    public ExceptionHandlingMiddleware(ILogger logger)
-    {
-        _logger = logger;
-    }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -51,19 +46,14 @@ public sealed class ExceptionHandlingMiddleware : IMiddleware
         }
     }
 
-    private HttpStatusCode GetStatusCodeFrom(Exception ex)
+    private static HttpStatusCode GetStatusCodeFrom(Exception ex)
     {
-        switch (ex)
+        return ex switch
         {
-            case InvalidActionException:
-                return HttpStatusCode.BadRequest;
-
-            case NotFoundException:
-                return HttpStatusCode.NotFound;
-
-            default:
-                return HttpStatusCode.InternalServerError;
-        }
+            InvalidActionException => HttpStatusCode.BadRequest,
+            NotFoundException => HttpStatusCode.NotFound,
+            _ => HttpStatusCode.InternalServerError,
+        };
     }
 
     public record ExceptionJson(string ExceptionMessage, int StatusCode);

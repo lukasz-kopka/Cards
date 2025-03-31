@@ -1,9 +1,9 @@
 #address for http
-#@Cards_HostAddress = http://localhost:5263
+@Cards_HostAddress = http://localhost:5263
 #address for https
 #@Cards_HostAddress = https://localhost:7138
 #address for IIS Express
-@Cards_HostAddress = https://localhost:44373
+#@Cards_HostAddress = https://localhost:44373
 #address for docker
 #@Cards_HostAddress = http://localhost:32770
 

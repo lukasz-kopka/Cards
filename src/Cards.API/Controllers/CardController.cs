@@ -8,15 +8,10 @@ namespace Cards.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public sealed class CardController : ControllerBase
+public sealed class CardController(IMediator mediator, IValidator<GetCardActions> cardValidator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly IValidator<GetCardActions> _cardValidator;
-    public CardController(IMediator mediator, IValidator<GetCardActions> cardValidator)
-    {
-        _mediator = mediator;
-        _cardValidator = cardValidator;
-    }
+    private readonly IMediator _mediator = mediator;
+    private readonly IValidator<GetCardActions> _cardValidator = cardValidator;
 
     [HttpPost("available-actions")]
     public async Task<ActionResult<CardActions>> GetCardActions(GetCardActions cardActions, CancellationToken cancellationToken)
